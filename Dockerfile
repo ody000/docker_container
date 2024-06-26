@@ -23,7 +23,6 @@ CMD ["python", "/refchef/__init__.py"]
     #     File "/usr/local/lib/python3.8/site-packages/refchef/table_utils.py", line 4, in <module>
     #       from pandas.io.json import json_normalize
     #   ImportError: cannot import name 'json_normalize' from 'pandas.io.json' (/usr/local/lib/python3.8/site-packages/pandas/io/json/__init__.py)
-#   What I interpret is that refchef-cook tries to open table_utils.py, which tries to import pandas and its json_normalize,
-#   But the json package is not avaliable. Guess it's due to version problems?
+#   But line 4 is commented-out in table_utils.py!
 
-# 3. Cannot run "python3 setup.py test" in terminal as 
+# 3. Most dependency import are unsuccessful (e.g. in table_utils.py, import "pandas" cannot be resolved)
