@@ -7,29 +7,14 @@ WORKDIR /app
 # Setting up dependencies turns out successful
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install refchef
+RUN pip install git+https://github.com/compbiocore/refchef.git
 
-# Question: what should I fill into the second argument?
 CMD ["python", "/refchef/__init__.py"]
 
-# Other issues
-# 1. cannot run "docker build -t <name>" at the terminal when in the docker_container folder. 
-#    Instead can only use "docker buildx build ." as the command.
 
-# 2. When running "refchef-cook -h" at root (ERROR):
-    # Traceback (most recent call last):
-    #     File "/usr/local/bin/refchef-menu", line 12, in <module>
-    #       from refchef.table_utils import *
-    #     File "/usr/local/lib/python3.8/site-packages/refchef/table_utils.py", line 4, in <module>
-    #       from pandas.io.json import json_normalize
-    #   ImportError: cannot import name 'json_normalize' from 'pandas.io.json' (/usr/local/lib/python3.8/site-packages/pandas/io/json/__init__.py)
-#   But line 4 is commented-out in table_utils.py!
-
-# 3. Most dependency import are unsuccessful (e.g. in table_utils.py, import "pandas" cannot be resolved)
-
-# 4. Running tests: 
-    # 4.1. "json.normalize" not defined, which led to lots of breakdown (e.g. test_table_utils.py line 20)
-    # 4.2. reading "master.yaml" file generates failure
+# 1. Running tests: 
+    # 1.1. "json.normalize" not defined, which led to lots of breakdown (e.g. test_table_utils.py line 20)
+    # 2.2. reading "master.yaml" file generates failure
     
 #     @pytest.fixture # macro to set up a fixture that will be used in other functions.
 #     def menu():
